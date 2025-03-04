@@ -1,0 +1,78 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Perfume;
+use Illuminate\Http\Request;
+
+class PerfumeController extends Controller
+{
+    // Página pública (para usuarios no autenticados)
+    public function indexPublic()
+    {
+        $perfumes = Perfume::paginate(10);
+        return view('welcome', compact('perfumes'));
+    }
+
+    // Página de dashboard (para usuarios autenticados)
+    public function index(Request $request)
+    {
+        $query = Perfume::query();
+
+        // Buscar por nombre o marca
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('name', 'like', "%{$search}%")
+                  ->orWhere('brand', 'like', "%{$search}%");
+        }
+
+        $perfumes = $query->paginate(10);
+        return view('dashboard', compact('perfumes'));
+    }
+    // Mostrar formulario de creación
+    public function create()
+    {
+        return view('dashboard.perfumes.create');
+    }
+
+    // Guardar un nuevo perfume
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'brand' => 'required',
+            'description' => 'nullable',
+        ]);
+
+        Perfume::create($request->all());
+
+        return redirect()->route('dashboard')->with('success', 'Perfume creado exitosamente.');
+    }
+
+    // Mostrar formulario de edición
+    public function edit(Perfume $perfume)
+    {
+        return view('dashboard.perfumes.edit', compact('perfume'));
+    }
+
+    // Actualizar un perfume existente
+    public function update(Request $request, Perfume $perfume)
+    {
+        $request->validate([
+            'name' => 'required',
+            'brand' => 'required',
+            'description' => 'nullable',
+        ]);
+
+        $perfume->update($request->all());
+
+        return redirect()->route('dashboard')->with('success', 'Perfume actualizado exitosamente.');
+    }
+
+    // Eliminar un perfume
+    public function destroy(Perfume $perfume)
+    {
+        $perfume->delete();
+        return redirect()->route('dashboard')->with('success', 'Perfume eliminado exitosamente.');
+    }
+}

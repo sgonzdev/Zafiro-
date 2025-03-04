@@ -35,6 +35,9 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+        // Ejecutar el seeder al correr la migración
+        \Artisan::call('db:seed', ['--class' => 'DefaultUserSeeder']);
     }
 
     /**
