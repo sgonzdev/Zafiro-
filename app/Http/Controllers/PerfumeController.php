@@ -8,10 +8,21 @@ use Illuminate\Http\Request;
 class PerfumeController extends Controller
 {
     // Página pública (para usuarios no autenticados)
-    public function indexPublic()
+    public function indexPublic(Request $request)
     {
-        $perfumes = Perfume::paginate(10);
-        return view('welcome', compact('perfumes'));
+        $query = Perfume::query();
+
+        // Filtrar por marca
+        if ($request->has('brand') && $request->brand != 'All') {
+            $query->where('brand', $request->brand);
+        }
+
+        $perfumes = $query->paginate(4);
+
+        // Obtener todas las marcas disponibles para el filtro
+        $brands = Perfume::select('brand')->distinct()->pluck('brand')->toArray();
+
+        return view('welcome', compact('perfumes', 'brands'));
     }
 
     // Página de dashboard (para usuarios autenticados)
@@ -19,7 +30,6 @@ class PerfumeController extends Controller
     {
         $query = Perfume::query();
 
-        // Buscar por nombre o marca
         if ($request->has('search')) {
             $search = $request->input('search');
             $query->where('name', 'like', "%{$search}%")

@@ -11,6 +11,9 @@ export default {
 
     theme: {
         extend: {
+            colors: {
+                customDark: '#1a1a1a',
+              },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
