@@ -1,0 +1,584 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    background-color: #1a1a1a;
+    color: white;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 15px 0;
+}
+
+.navbar {
+    background-color: white;
+    border-radius: 30px;
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    max-width: 700px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 5px 15px;
+    position: relative;
+}
+
+.navbar a.active::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 15px;
+    right: 15px;
+    height: 2px;
+    background-color: black;
+}
+
+.container {
+    height: 90vh;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: calc(100% - 100px);
+    padding: 0 50px;
+}
+.text-content {
+    color: #cccccc;
+    z-index: 2;
+}
+.brand-name {
+    font-size: 150px;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 20px;
+}
+.tagline {
+    font-size: 32px;
+    font-weight: 300;
+}
+.perfume-images {
+    position: relative;
+    height: 400px;
+    width: 500px;
+    z-index: 1;
+}
+.perfume-1 {
+    position: absolute;
+    height: 350px;
+    transform: rotate(15deg);
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+}
+.perfume-2 {
+    position: absolute;
+    height: 350px;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+.welcome-container {
+    background-color: #f4f4f4;
+}
+
+.products-container {
+    display: flex;
+    padding: 5%;
+    position: relative;
+}
+
+.pagination {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.pagination .page-link {
+    font-size: 5.5rem; /* Tamaño de la fuente de las flechas */
+    padding: 10px 15px; /* Espaciado dentro del botón */
+    color: white; /* Color de las flechas */
+    border-radius: 5px;
+    text-decoration: none; /* Sin subrayado */
+    transition: all 0.3s ease;
+}
+
+.pagination .page-link:hover {
+    color:rgb(180, 180, 180); /* Color del texto al pasar el cursor */
+}
+
+
+.arrow-container {
+    text-align: center;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.arrow-up,
+.arrow-down {
+    font-size: 1.5em;
+    color: #007bff;
+    transition: transform 0.3s ease;
+}
+
+.brand-text {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.brands-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+}
+
+.brand-button-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.brand-button-wrapper:hover::after {
+    left: 100%;
+    margin-left: 10px;
+    max-width: 200px;
+}
+
+.large-arrow {
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.filter-sidebar {
+    height: 350px;
+    width: 200px;
+    background-color: rgba(50, 50, 50, 0.5);
+    border-radius: 15px;
+    margin-top: 2%;
+    margin-right: 5%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.filter-sidebar.expanded {
+    max-height: none;
+}
+
+.filter-option {
+    display: block;
+    padding: 10px;
+    background-color: #f4f4f4;
+    margin: 5px 0;
+    text-decoration: none;
+    box-sizing: border-box;
+    color: #333;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
+
+.filter-option.active {
+    background-color: rgb(109, 109, 109);
+    color: white;
+}
+
+.filter-sidebar.expanded+.carousel-arrow {
+    display: none;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    flex-grow: 1;
+
+}
+
+.product-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    height: auto;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: white;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+.product-info {
+    padding: 20px;
+}
+
+.product-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.product-description {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    cursor: pointer;
+    max-height: 4.5em;
+}
+
+.name-tooltip {
+    bottom: 100%;
+    margin-bottom: 5px;
+}
+
+.tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.desc-container {
+    display: block;
+    position: relative;
+}
+
+.tooltip {
+    visibility: hidden;
+    position: absolute;
+    z-index: 999;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    width: 250px;
+    max-width: 300px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+    white-space: normal;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.desc-tooltip {
+    bottom: 100%;
+    margin-bottom: 5px;
+}
+
+.name-container:hover .name-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.desc-container:hover .desc-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.buy-button {
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+    background-color: #4a6cf7;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buy-button:hover {
+    background-color: #3451c6;
+}
+
+.about-container {
+    display: flex;
+    margin-top: 50px;
+    gap: 50px;
+}
+
+.about-profile {
+    flex: 1;
+    background-color: rgba(50, 50, 50, 0.5);
+    border-radius: 15px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #8888aa;
+    margin-bottom: 20px;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-text {
+    line-height: 1.6;
+}
+
+.about-description {
+    flex: 1;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.8;
+}
+
+.about-description p {
+    margin-bottom: 20px;
+}
+
+/* Página de contacto */
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100vh - 150px);
+}
+
+.contact-form-container {
+    flex-grow: 1;
+    background-color: rgba(50, 50, 50, 0.5);
+    border-radius: 15px;
+    margin: 50px 0;
+    padding: 30px;
+}
+
+.social-media {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+}
+
+.social-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.whatsapp {
+    background-color: #25d366;
+}
+
+.instagram {
+    background: linear-gradient(45deg,
+            #405de6,
+            #5851db,
+            #833ab4,
+            #c13584,
+            #e1306c,
+            #fd1d1d);
+}
+
+.facebook {
+    background-color: #1877f2;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .brand-name {
+        font-size: 120px;
+    }
+
+    .perfume-images {
+        width: 400px;
+    }
+
+    .perfume-1,
+    .perfume-2 {
+        height: 300px;
+    }
+
+    .about-container {
+        flex-direction: column;
+    }
+
+    .about-description {
+        text-align: center;
+    }
+}
+
+@media (max-width: 900px) {
+    .navbar {
+        width: 80%;
+    }
+
+    .content {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 50px;
+    }
+
+    .brand-name {
+        font-size: 100px;
+    }
+
+    .perfume-images {
+        margin-top: 50px;
+    }
+
+    .products-container {
+        flex-direction: column;
+    }
+
+    .filter-sidebar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        margin-bottom: 20px;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .social-media {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        width: 95%;
+        padding: 10px 20px;
+    }
+
+    .navbar a {
+        font-size: 16px;
+        padding: 5px 10px;
+    }
+
+    .brand-name {
+        font-size: 70px;
+    }
+
+    .tagline {
+        font-size: 24px;
+    }
+
+    .perfume-images {
+        width: 300px;
+    }
+
+    .perfume-1,
+    .perfume-2 {
+        height: 250px;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 400px) {
+    .tooltip {
+        width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .brand-button-wrapper:hover::after {
+        left: auto;
+        right: 105%;
+    }
+}

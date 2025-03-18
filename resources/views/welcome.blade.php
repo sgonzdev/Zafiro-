@@ -4,96 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Zafiro - Perfumes</title>
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Añadir manejadores de evento a los enlaces de filtro
-                const filterOptions = document.querySelectorAll('.filter-option');
-                filterOptions.forEach(option => {
-                    option.addEventListener('click', function(e) {
-                        e.preventDefault();
+        <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
 
-                        // Quitar la clase 'active' de todos los enlaces
-                        filterOptions.forEach(opt => opt.classList.remove('active'));
-
-                        // Añadir la clase 'active' al enlace seleccionado
-                        this.classList.add('active');
-
-                        // Obtener el valor de la marca seleccionada
-                        const brand = this.getAttribute('data-brand');
-
-                        // Redirigir a la página con el filtro aplicado
-                        window.location.href = '{{ route("welcome") }}' + (brand === 'All' ? '' : '?brand=' + brand);
-                    });
-                });
-            });
-
-            document.addEventListener('DOMContentLoaded', function() {
-                const filterSidebar = document.querySelector('.filter-sidebar');
-                const carouselArrow = document.querySelector('.carousel-arrow');
-
-                // Mostrar más marcas al hacer clic en la flecha
-                carouselArrow.addEventListener('click', function() {
-                    filterSidebar.classList.toggle('expanded');
-                });
-            });
-
-            document.addEventListener('DOMContentLoaded', function () {
-                const arrowUp = document.getElementById('arrow-up');
-                const arrowDown = document.getElementById('arrow-down');
-                const brands = document.querySelectorAll('.filter-option');
-                const brandsPerPage = 3; // Cantidad de marcas por grupo
-                let currentStartIndex = 0;
-
-                const updateBrandsDisplay = () => {
-                    // Ocultar todas las marcas
-                    brands.forEach((brand) => {
-                        brand.style.display = 'none';
-                    });
-
-                    // Mostrar el grupo actual
-                    for (let i = currentStartIndex; i < currentStartIndex + brandsPerPage; i++) {
-                        if (brands[i]) {
-                            brands[i].style.display = 'block';
-                        }
-                    }
-
-                    // Controlar visibilidad de las flechas
-                    if (currentStartIndex === 0) {
-                        // Primer grupo: solo flecha hacia abajo
-                        arrowUp.style.display = 'none';
-                        arrowDown.style.display = 'inline';
-                    } else if (currentStartIndex + brandsPerPage >= brands.length) {
-                        // Último grupo: solo flecha hacia arriba
-                        arrowUp.style.display = 'inline';
-                        arrowDown.style.display = 'none';
-                    } else {
-                        // Grupos intermedios: ambas flechas
-                        arrowUp.style.display = 'inline';
-                        arrowDown.style.display = 'inline';
-                    }
-                };
-
-                // Evento para la flecha hacia abajo
-                if (arrowDown) {
-                    arrowDown.addEventListener('click', () => {
-                        currentStartIndex += brandsPerPage;
-                        updateBrandsDisplay();
-                    });
-                }
-
-                // Evento para la flecha hacia arriba
-                if (arrowUp) {
-                    arrowUp.addEventListener('click', () => {
-                        currentStartIndex -= brandsPerPage;
-                        updateBrandsDisplay();
-                    });
-                }
-
-                // Mostrar las primeras marcas al cargar
-                updateBrandsDisplay();
-            });
-        </script>
     </head>
     <body>
         <div class="container welcome-container">
@@ -152,25 +64,35 @@
                     @foreach ($perfumes as $perfume)
                         <div class="product-card">
                             @if ($perfume->image_url)
+                            <div class="product-image">
                                 <img src="{{ $perfume->image_url }}" alt="{{ $perfume->name }}">
-                            @else
-                                <img src="/placeholder.svg?height=150&width=150" alt="{{ $perfume->name }}">
-                            @endif
-                            <div class="truncate-wrapper" title="{{ $perfume->name }}">
-                                <h3 class="truncate">{{ $perfume->name }}</h3>
                             </div>
-                            <p><strong>Marca:</strong> {{ $perfume->brand }}</p>
-                            <p>{{ $perfume->description }}</p>
-                            <a
-                                href="https://api.whatsapp.com/send?phone=+573162352634&text=Hola,%20quisiera%20saber%20si%20el%20perfume%20'{{ urlencode($perfume->name) }}'%20está%20disponible."
-                                class="buy-button"
-                                target="_blank"
-                                rel="noopener noreferrer">
-                                Comprar
-                            </a>
+                            @else
+                            <div class="product-image">
+                                <img src="/placeholder.svg?height=150&width=150" alt="{{ $perfume->name }}">
+                            </div>
+                            @endif
+                            <div class="product-info">
+                                <div class="tooltip-container name-container">
+                                    <h3 class="product-name">{{ $perfume->name }}</h3>
+                                    <div class="tooltip name-tooltip">{{ $perfume->name }}</div>
+                                </div>
+                                <div class="tooltip-container desc-container">
+                                    <p class="product-description">{{ $perfume->description }}</p>
+                                    <div class="tooltip desc-tooltip">{{ $perfume->description }}</div>
+                                </div>
+                                <a
+                                    href="https://api.whatsapp.com/send?phone=+573162352634&text=Hola,%20quisiera%20saber%20si%20el%20perfume%20'{{ urlencode($perfume->name) }}'%20está%20disponible."
+                                    class="buy-button"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                    Comprar
+                                </a>
+                            </div>
                         </div>
                     @endforeach
                 </div>
+
                 <div class="pagination">
                     {{ $perfumes->appends(request()->query())->links('vendor.pagination.simple-default') }}
                 </div>
@@ -194,7 +116,6 @@
 
             <div class="contact-container container">
                 <div class="contact-form-container">
-                    <!-- Aquí puedes agregar un formulario de contacto si lo deseas -->
                 </div>
                 <div class="social-media">
                     <div class="social-item">
@@ -212,186 +133,20 @@
                 </div>
             </div>
         </div>
-
-
-        <style>
-            .welcome-container {
-                background-color: #f4f4f4;
-            }
-
-            .container {
-                height: 90vh;
-                margin: 0 auto;
-                padding: 0 20px;
-            }
-
-            .products-container {
-                padding: 20px 0;
-                margin-bottom: 50px;
-            }
-
-            .pagination {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 15px;
-                margin-top: 20px;
-            }
-
-            .pagination .page-link {
-                font-size: 5.5rem; /* Tamaño de la fuente de las flechas */
-                padding: 10px 15px; /* Espaciado dentro del botón */
-                color: white; /* Color de las flechas */
-                border-radius: 5px;
-                text-decoration: none; /* Sin subrayado */
-                transition: all 0.3s ease;
-            }
-
-            .pagination .page-link:hover {
-                color:rgb(180, 180, 180); /* Color del texto al pasar el cursor */
-            }
-
-            .large-arrow {
-                font-size: 4rem; /* Agranda las flechas */
-                font-weight: bold;
-            }
-            .filter-sidebar {
-                height: 350px;
-                overflow: hidden;
-                position: relative;
-            }
-            .filter-sidebar.expanded {
-                max-height: none;
-            }
-            .filter-option {
-                display: block;
-                padding: 10px;
-                background-color: #f4f4f4;
-                margin: 5px 0;
-                text-decoration: none;
-                color: #333;
-                border-radius: 4px;
-                text-align: center;
-                position: relative;
-                width: 100%;
-            }
-            .filter-option.active {
-                background-color:rgb(109, 109, 109);
-                color: white;
-            }
-            .filter-sidebar.expanded + .carousel-arrow {
-                display: none;
-            }
-            .products-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 20px;
-                margin-top: 20px;
-            }
-
-            .product-card {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: space-between;
-                padding: 10px;
-                background-color: #fff;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                min-height: 300px;
-                max-height: 250px;
-                min-height: unset;
-            }
-
-            .product-card img {
-                max-width: 40%;
-                height: auto;
-                border-radius: 4px;
-            }
-
-            .product-card h3 {
-                margin: 10px 0;
-                font-size: 1.2rem;
-            }
-
-            .product-card p {
-                margin: 5px 0;
-                color: #555;
-            }
-
-            /* Truncamiento de texto */
-            .truncate-wrapper {
-                position: relative;
-            }
-
-            .truncate {
-                max-width: 200px; /* Ajusta el ancho según sea necesario */
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                cursor: default; /* Deshabilita el cursor de puntero */
-            }
-
-            .brands-container {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-                position: relative;
-            }
-
-            .arrow-container {
-                text-align: center;
-                cursor: pointer;
-                margin-top: 10px;
-            }
-
-            .arrow-up, .arrow-down {
-                font-size: 1.5em;
-                color: #007bff;
-                transition: transform 0.3s ease;
-            }
-
-            /* Nuevos estilos para el truncamiento de texto en los botones de marca */
-            .brand-button-wrapper {
-                position: relative;
-                width: 100%;
-            }
-
-            .brand-text {
-                display: block;
-                max-width: 100%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            /* Estilo para el tooltip */
-            .brand-button-wrapper:hover::after {
-                content: attr(title);
-                position: absolute;
-                left: 105%;
-                top: 50%;
-                transform: translateY(-50%);
-                background-color: rgba(211, 27, 27, 0.8);
-                color: white;
-                padding: 5px 10px;
-                border-radius: 4px;
-                z-index: 10000;
-                white-space: nowrap;
-                font-size: 0.9em;
-                pointer-events: none;
-            }
-
-
-            @media (max-width: 768px) {
-                .brand-button-wrapper:hover::after {
-                    left: auto;
-                    right: 105%;
-                }
-            }
-        </style>
-
+        <script src="{{ asset('js/welcome.js') }}"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const filterOptions = document.querySelectorAll('.filter-option');
+                filterOptions.forEach(option => {
+                    option.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        filterOptions.forEach(opt => opt.classList.remove('active'));
+                        this.classList.add('active');
+                        const brand = this.getAttribute('data-brand');
+                        window.location.href = '{{ route("welcome") }}' + (brand === 'All' ? '' : '?brand=' + brand);
+                    });
+                });
+            });
+            </script>
     </body>
     </html>
