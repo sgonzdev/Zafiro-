@@ -6,11 +6,10 @@
     </x-slot>
 
     <style>
-        /* Estilos para la tabla responsiva */
         .perfume-table {
             width: 95%;
             border-collapse: collapse;
-            table-layout: fixed; /* Importante para anchos fijos */
+            table-layout: fixed;
         }
 
         .perfume-table th,
@@ -29,7 +28,6 @@
             color: #64748b;
         }
 
-        /* Columnas con anchos específicos */
         .perfume-table .col-nombre {
             width: 20%;
         }
@@ -55,11 +53,10 @@
             word-wrap: break-word; /* Para navegadores antiguos */
             overflow-wrap: break-word;
             word-break: break-word; /* Rompe palabras cuando sea necesario */
-            hyphens: auto; /* Añade guiones si es necesario */
+            hyphens: auto;
             max-width: 100%;
         }
 
-        /* Estilos para imágenes */
         .perfume-img {
             width: 64px;
             height: 64px;
@@ -67,7 +64,6 @@
             border-radius: 4px;
         }
 
-        /* Estilos para botones de acción */
         .action-buttons {
             display: flex;
             gap: 16px;

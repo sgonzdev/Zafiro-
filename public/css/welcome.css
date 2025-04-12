@@ -52,7 +52,6 @@ body {
 .container {
     height: 90vh;
     margin: 0 auto;
-    padding: 0 20px;
 }
 .content {
     display: flex;
@@ -77,146 +76,133 @@ body {
 }
 .perfume-images {
     position: relative;
-    height: 400px;
+    height: 600px;
     width: 500px;
     z-index: 1;
 }
+
 .perfume-1 {
     position: absolute;
-    height: 350px;
-    transform: rotate(15deg);
-    left: 0;
-    bottom: 0;
+    height: 600px;
+    transform: rotate(0deg);
+    right: 30%;
+    top: 0;
     z-index: 2;
+
 }
+
 .perfume-2 {
     position: absolute;
-    height: 350px;
-    right: 0;
-    bottom: 0;
+    height: 500px;
+    left: -50px;
+    top: 40px;
     z-index: 1;
+    transform: rotate(30deg);
 }
+
+.perfume-3 {
+   position: absolute;
+   height: 520px;
+   left: -395px;  /* Ajusta la posición a la izquierda */
+   top: 0;
+   z-index: 1;
+   transform: rotate(-30deg); /* Rotación en grados */
+}
+
+
+
 .welcome-container {
-    background-color: #f4f4f4;
+    background: #000000;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to top, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to top, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 .products-container {
     display: flex;
     padding: 5%;
+    top: 20%;
     position: relative;
 }
-
-.pagination {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.pagination .page-link {
-    font-size: 5.5rem; /* Tamaño de la fuente de las flechas */
-    padding: 10px 15px; /* Espaciado dentro del botón */
-    color: white; /* Color de las flechas */
-    border-radius: 5px;
-    text-decoration: none; /* Sin subrayado */
-    transition: all 0.3s ease;
-}
-
-.pagination .page-link:hover {
-    color:rgb(180, 180, 180); /* Color del texto al pasar el cursor */
-}
-
-
-.arrow-container {
-    text-align: center;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.arrow-up,
-.arrow-down {
-    font-size: 1.5em;
-    color: #007bff;
-    transition: transform 0.3s ease;
-}
-
-.brand-text {
-    display: block;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.brands-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-}
-
-.brand-button-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-}
-
-.brand-button-wrapper:hover::after {
-    left: 100%;
-    margin-left: 10px;
-    max-width: 200px;
-}
-
-.large-arrow {
-    font-size: 4rem;
-    font-weight: bold;
-}
-
-.filter-sidebar {
-    height: 350px;
-    width: 200px;
-    background-color: rgba(50, 50, 50, 0.5);
-    border-radius: 15px;
-    margin-top: 2%;
-    margin-right: 5%;
+.brands-sidebar {
+    flex: 1;
+    width: 300px; /* Ancho fijo para controlar el truncamiento */
     padding: 20px;
+    margin-right: 90px;
+    min-width: 300px;
+    max-width: 300px;
+    border-radius: 8px;
+    max-height: 400px; /* Altura máxima */
+    overflow-y: auto; /* Scroll vertical */
+    scrollbar-width: none; /* Ocultar barra de scroll en Firefox */
+}
+
+/* Ocultar barra de scroll en navegadores WebKit */
+.brands-sidebar::-webkit-scrollbar {
+    display: none; /* Oculta la barra de scroll */
+}
+
+/* Título del sidebar */
+.sidebar-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #d6d6d6;
+    text-align: center;
+}
+
+/* Lista de marcas */
+.brands-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
+    gap: 15px; /* Mayor separación entre marcas */
 }
 
-.filter-sidebar.expanded {
-    max-height: none;
-}
-
-.filter-option {
-    display: block;
-    padding: 10px;
-    background-color: #f4f4f4;
-    margin: 5px 0;
+/* Enlaces de marcas */
+.brand-link {
     text-decoration: none;
-    box-sizing: border-box;
+    font-size: 1rem;
+    color: #555;
+    padding: 12px 15px; /* Más espacio interior */
+    border-radius: 10px; /* Bordes redondeados */
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    background-color: #f5f5f5; /* Fondo claro */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    white-space: nowrap; /* Mantener en una línea */
+    overflow: hidden; /* Ocultar contenido desbordado */
+    text-overflow: ellipsis; /* Truncar con puntos suspensivos */
+    display: block; /* Asegurar que funcione como bloque para truncamiento */
+    max-width: 100%; /* Asegurar que respete el ancho del contenedor */
+}
+
+/* Estado activo */
+.brand-link.active {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra más destacada */
+}
+
+/* Hover */
+.brand-link:hover {
+    background-color: #e3e3e3;
     color: #333;
-    border-radius: 4px;
-    text-align: center;
-    position: relative;
-    width: 100%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Sombra al pasar el mouse */
 }
 
-.filter-option.active {
-    background-color: rgb(109, 109, 109);
-    color: white;
-}
+/* Responsividad */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        gap: 15px;
+    }
 
-.filter-sidebar.expanded+.carousel-arrow {
-    display: none;
+    .brands-sidebar {
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+    }
 }
 
 .products-grid {
@@ -226,13 +212,45 @@ body {
     flex-grow: 1;
 
 }
+.pagination.container {
+    display: flex;
+    justify-content: center;
+   transform: translateX(40vh);
+    height: 50px;
+
+}
+
+/* Aumentar tamaño de las flechas */
+.page-link.large-arrow {
+    font-size: 2rem; /* Tamaño grande para las flechas */
+    padding: 10px 15px; /* Espaciado alrededor del icono */
+    border-radius: 50%; /* Hacer las flechas circulares */
+    color: white; /* Color del icono */
+    transition: background-color 0.3s ease; /* Transición para el hover */
+}
+
+/* Efecto hover para las flechas */
+.page-link.large-arrow:hover {
+    color: rgb(201, 201, 201); /* Color del icono en hover */
+}
+
+/* Paginación: Asegurarse de que los íconos no se superpongan */
+.pagination .page-item {
+    margin: 0 5px; /* Espacio entre cada ítem */
+}
+
+/* Estilo adicional para las flechas si es necesario */
+.page-item a {
+    text-decoration: none; /* Evitar subrayado */
+}
 
 .product-card {
     width: 100%;
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    height: auto;
+    margin-top: 40px;
+    height: 350px;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -376,11 +394,13 @@ body {
     display: flex;
     margin-top: 50px;
     gap: 50px;
+    padding: 8%;
+    background-color: #202020;
 }
 
 .about-profile {
     flex: 1;
-    background-color: rgba(50, 50, 50, 0.5);
+    background-color: rgba(50, 50, 50, 0.192);
     border-radius: 15px;
     padding: 30px;
     display: flex;
@@ -426,7 +446,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: calc(100vh - 150px);
+    margin: 40px;
+
 }
 
 .contact-form-container {
@@ -447,6 +468,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    font-size: 25px;
 }
 
 .social-icon {
@@ -456,21 +478,21 @@ body {
 }
 
 .whatsapp {
-    background-color: #25d366;
+    background-color: #25D366;
+    font-size: 10px;
+}
+
+
+
+.facebook {
+
+    font-size: 10px;
 }
 
 .instagram {
-    background: linear-gradient(45deg,
-            #405de6,
-            #5851db,
-            #833ab4,
-            #c13584,
-            #e1306c,
-            #fd1d1d);
-}
+   font-size: 10px;
 
-.facebook {
-    background-color: #1877f2;
+
 }
 
 /* Responsive */

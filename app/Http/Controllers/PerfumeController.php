@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class PerfumeController extends Controller
 {
-    // Página pública (para usuarios no autenticados)
     public function indexPublic(Request $request)
     {
         $query = Perfume::query();
@@ -19,13 +18,11 @@ class PerfumeController extends Controller
 
         $perfumes = $query->paginate(4);
 
-        // Obtener todas las marcas disponibles para el filtro
         $brands = Perfume::select('brand')->distinct()->pluck('brand')->toArray();
 
         return view('welcome', compact('perfumes', 'brands'));
     }
 
-    // Página de dashboard (para usuarios autenticados)
     public function index(Request $request)
     {
         $query = Perfume::query();

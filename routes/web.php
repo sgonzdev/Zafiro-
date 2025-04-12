@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 
 // Ruta pública (para usuarios no autenticados)
 Route::get('/', [PerfumeController::class, 'indexPublic'])->name('welcome');
-
 // Ruta de dashboard (para usuarios autenticados)
 Route::get('/dashboard', [PerfumeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -26,4 +25,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__.'/auth.php';    
